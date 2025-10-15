@@ -17,98 +17,98 @@ const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
 const formLinks = {
   "input-pic": {
     non_ruko_non_urugan_30hr:
-      "https://frontend-form-virid.vercel.app/h2_30hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h2_30hr.html",
     non_ruko_non_urugan_35hr:
-      "https://frontend-form-virid.vercel.app/h2_35hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h2_35hr.html",
     non_ruko_non_urugan_40hr:
-      "https://frontend-form-virid.vercel.app/h2_40hr.html",
-    non_ruko_urugan_48hr: "https://frontend-form-virid.vercel.app/h2_48hr.html",
-    ruko_10hr: "https://frontend-form-virid.vercel.app/h2_10hr.html",
-    ruko_14hr: "https://frontend-form-virid.vercel.app/h2_14hr.html",
-    ruko_20hr: "https://frontend-form-virid.vercel.app/h2_20hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h2_40hr.html",
+    non_ruko_urugan_48hr: "https://pengawasan-building.vercel.app/pengawasan/h2_48hr.html",
+    ruko_10hr: "https://pengawasan-building.vercel.app/pengawasan/h2_10hr.html",
+    ruko_14hr: "https://pengawasan-building.vercel.app/pengawasan/h2_14hr.html",
+    ruko_20hr: "https://pengawasan-building.vercel.app/pengawasan/h2_20hr.html",
   },
   h2: {
     non_ruko_non_urugan_30hr:
-      "https://frontend-form-virid.vercel.app/h7_30hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h7_30hr.html",
     non_ruko_non_urugan_35hr:
-      "https://frontend-form-virid.vercel.app/h7_35hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h7_35hr.html",
     non_ruko_non_urugan_40hr:
-      "https://frontend-form-virid.vercel.app/h7_40hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h7_40hr.html",
     non_ruko_urugan_48hr:
-      "https://frontend-form-virid.vercel.app/h10_48hr.html",
-    ruko_10hr: "https://frontend-form-virid.vercel.app/h5_10hr.html",
-    ruko_14hr: "https://frontend-form-virid.vercel.app/h7_14hr.html",
-    ruko_20hr: "https://frontend-form-virid.vercel.app/h12_20hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h10_48hr.html",
+    ruko_10hr: "https://pengawasan-building.vercel.app/pengawasan/h5_10hr.html",
+    ruko_14hr: "https://pengawasan-building.vercel.app/pengawasan/h7_14hr.html",
+    ruko_20hr: "https://pengawasan-building.vercel.app/pengawasan/h12_20hr.html",
   },
   h5: {
-    ruko_10hr: "https://frontend-form-virid.vercel.app/h8_10hr.html",
+    ruko_10hr: "https://pengawasan-building.vercel.app/pengawasan/h8_10hr.html",
   },
   h7: {
     non_ruko_non_urugan_30hr:
-      "https://frontend-form-virid.vercel.app/h14_30hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h14_30hr.html",
     non_ruko_non_urugan_35hr:
-      "https://frontend-form-virid.vercel.app/h17_35hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h17_35hr.html",
     non_ruko_non_urugan_40hr:
-      "https://frontend-form-virid.vercel.app/h17_40hr.html",
-    ruko_14hr: "https://frontend-form-virid.vercel.app/h10_14hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h17_40hr.html",
+    ruko_14hr: "https://pengawasan-building.vercel.app/pengawasan/h10_14hr.html",
   },
   h8: {
-    ruko_10hr: "https://frontend-form-virid.vercel.app/serah_terima.html",
+    ruko_10hr: "https://pengawasan-building.vercel.app/pengawasan/serah_terima.html",
   },
   h10: {
     non_ruko_urugan_48hr:
-      "https://frontend-form-virid.vercel.app/h25_48hr.html",
-    ruko_14hr: "https://frontend-form-virid.vercel.app/serah_terima.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h25_48hr.html",
+    ruko_14hr: "https://pengawasan-building.vercel.app/pengawasan/serah_terima.html",
   },
   h12: {
-    ruko_20hr: "https://frontend-form-virid.vercel.app/h16_20hr.html",
+    ruko_20hr: "https://pengawasan-building.vercel.app/pengawasan/h16_20hr.html",
   },
   h14: {
     non_ruko_non_urugan_30hr:
-      "https://frontend-form-virid.vercel.app/h18_30hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h18_30hr.html",
   },
   h16: {
-    ruko_20hr: "https://frontend-form-virid.vercel.app/serah_terima.html",
+    ruko_20hr: "https://pengawasan-building.vercel.app/pengawasan/serah_terima.html",
   },
   h17: {
     non_ruko_non_urugan_35hr:
-      "https://frontend-form-virid.vercel.app/h22_35hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h22_35hr.html",
     non_ruko_non_urugan_40hr:
-      "https://frontend-form-virid.vercel.app/h25_40hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h25_40hr.html",
   },
   h18: {
     non_ruko_non_urugan_30hr:
-      "https://frontend-form-virid.vercel.app/h23_30hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h23_30hr.html",
   },
   h22: {
     non_ruko_non_urugan_35hr:
-      "https://frontend-form-virid.vercel.app/h28_35hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h28_35hr.html",
   },
   h23: {
     non_ruko_non_urugan_30hr:
-      "https://frontend-form-virid.vercel.app/serah_terima.html",
+      "https://pengawasan-building.vercel.app/pengawasan/serah_terima.html",
   },
   h25: {
     non_ruko_non_urugan_40hr:
-      "https://frontend-form-virid.vercel.app/h33_40hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h33_40hr.html",
     non_ruko_urugan_48hr:
-      "https://frontend-form-virid.vercel.app/h32_48hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h32_48hr.html",
   },
   h28: {
     non_ruko_non_urugan_35hr:
-      "https://frontend-form-virid.vercel.app/serah_terima.html",
+      "https://pengawasan-building.vercel.app/pengawasan/serah_terima.html",
   },
   h32: {
     non_ruko_urugan_48hr:
-      "https://frontend-form-virid.vercel.app/h41_48hr.html",
+      "https://pengawasan-building.vercel.app/pengawasan/h41_48hr.html",
   },
   h33: {
     non_ruko_non_urugan_40hr:
-      "https://frontend-form-virid.vercel.app/serah_terima.html",
+      "https://pengawasan-building.vercel.app/pengawasan/serah_terima.html",
   },
   h41: {
     non_ruko_urugan_48hr:
-      "https://frontend-form-virid.vercel.app/serah_terima.html",
+      "https://pengawasan-building.vercel.app/pengawasan/serah_terima.html",
   },
 };
 

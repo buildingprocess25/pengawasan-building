@@ -335,8 +335,7 @@
     </div>
 
     <script>
-      // ================== BAGIAN 1: DEKLARASI VARIABEL & KONSTANTA ==================
-      const SCRIPT_URL = "https://backend-form-y8wo.onrender.com/api/form";
+      const SCRIPT_URL = "https://pengawasan-building.onrender.com/api/form";
       const form = document.getElementById("pic-form");
       const loading = document.getElementById("loading");
       const submitBtn = document.getElementById("submit-btn");
@@ -349,7 +348,6 @@
       const kodeUlokInput = document.getElementById("kode_ulok");
       const logoutLink = document.getElementById("logout-link");
 
-      // ========== Deklarasi variabel baru untuk SPK & RAB ==========
       const rabUrlInput = document.getElementById("rab_url");
       const rabStatus = document.getElementById("rab-status");
       const spkUrlInput = document.getElementById("spk_url");
@@ -361,8 +359,6 @@
       const lingkupStatus = document.getElementById("lingkup-status");
       let currentRabUrl = "";
       let currentSpkUrl = "";
-
-      // ================== BAGIAN 2: FUNGSI-FUNGSI UTAMA & HELPER ==================
 
       function initializePage(userData) {
         const loggedInCabang = userData.cabang;
@@ -573,8 +569,6 @@
         }
       }
 
-      // ================== BAGIAN 3: EVENT LISTENERS ==================
-
       cabangInput.addEventListener("change", async function () {
         const cabang = cabangInput.value.trim();
         if (!cabang) return;
@@ -667,7 +661,6 @@
 
       form.addEventListener("submit", async function (e) {
         e.preventDefault();
-        // ========== Validasi untuk SPK dan RAB ==========
         if (!currentSpkUrl) {
           const msg =
             "SPK tidak ditemukan. Pastikan kode ulok dan lingkup pekerjaan sudah benar dan SPK sudah terdata.";
@@ -710,7 +703,7 @@
             showSuccess(pesan);
             showPopup(pesan);
             form.reset();
-            clearUrlFields(); // Reset dropdown ke state awal
+            clearUrlFields();
             cabangInput.dispatchEvent(new Event("change"));
           } else {
             const msg =
