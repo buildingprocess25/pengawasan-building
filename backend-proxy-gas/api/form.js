@@ -1,7 +1,9 @@
 const axios = require("axios");
 const cors = require("cors")({
   origin: [
-    "https://pengawasan-building.vercel.app",
+    "https://pengawasan-building.vercel.app/assets",
+    "https://pengawasan-building.vercel.app/pengawasan",
+    "https://pengawasan-building.vercel.app/perpanjangan_spk",
     "https://script.google.com",
   ],
   methods: ["GET", "POST", "OPTIONS"],
