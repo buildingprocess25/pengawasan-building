@@ -300,7 +300,7 @@
           showSuccess(result.message || "Login berhasil! Mengalihkan...");
           if (result.token) {
             sessionStorage.setItem("authToken", result.token);
-            const redirectUrl = `https://pengawasan-building.vercel.app/pengawasan/input_pic_pengawasan.html`;
+            const redirectUrl = `./input_pic_pengawasan.html`;
             setTimeout(() => (window.location.href = redirectUrl), 1500);
           } else {
             throw new Error("Token tidak diterima dari server.");
