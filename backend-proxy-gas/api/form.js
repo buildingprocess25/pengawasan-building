@@ -1,9 +1,7 @@
 const axios = require("axios");
 const cors = require("cors")({
   origin: [
-    "https://pengawasan-building.vercel.app/assets",
-    "https://pengawasan-building.vercel.app/pengawasan",
-    "https://pengawasan-building.vercel.app/perpanjangan_spk",
+    "https://pengawasan-building.vercel.app",
     "https://script.google.com",
   ],
   methods: ["GET", "POST", "OPTIONS"],
@@ -39,7 +37,6 @@ const GAS_URLS = {
 
 module.exports = (req, res) => {
   cors(req, res, async () => {
-    if (req.method === "OPTIONS") return res.status(200).end();
 
     const form = (req.query.form || req.body.form || "").toLowerCase();
     const GAS_URL = GAS_URLS[form];
