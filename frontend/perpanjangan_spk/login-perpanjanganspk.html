@@ -298,9 +298,11 @@
         try {
           const result = await performLogin(email, password);
           showSuccess(result.message || "Login berhasil! Mengalihkan...");
-          if (result.token) {
+          if (result.token && result.data) {
             sessionStorage.setItem("authToken", result.token);
-            const redirectUrl = `https://frontend-form-virid.vercel.app/perpanjangan_spk.html`;
+            sessionStorage.setItem("userData", JSON.stringify(result.data))
+
+            const redirectUrl = `https://pengawasan-building.vercel.app/perpanjangan_spk/perpanjangan_spk.html`;
             setTimeout(() => (window.location.href = redirectUrl), 1500);
           } else {
             throw new Error("Token tidak diterima dari server.");

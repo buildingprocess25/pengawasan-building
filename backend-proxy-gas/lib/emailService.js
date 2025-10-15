@@ -603,6 +603,73 @@ const emailTemplates = {
         tglSerahBerikut: data.tanggal_serah || "-",
       }),
   },
+
+  "perpanjangan_spk_approval": {
+    getSubject: (data) => `[PERLU PERSETUJUAN] Permintaan Perpanjangan SPK - ${data.nomor_ulok}`,
+    getRecipients: (data) => [data.bm_email].filter(Boolean), // Kirim ke Branch Manager
+    getHtmlBody: (data) => {
+        const approveUrl = `${data.webAppUrl}?action=approve&row=${data.row}&approver=${encodeURIComponent(data.bm_email)}`;
+        const rejectUrl = `${data.webAppUrl}?action=reject&row=${data.row}&approver=${encodeURIComponent(data.bm_email)}`;
+        const alasanList = data.alasan_spk.split('\n').map(alasan => `<li>${alasan}</li>`).join('');
+
+        return `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <p>Yth. Bapak/Ibu Branch Manager,</p>
+                <p>Terdapat permintaan perpanjangan SPK yang memerlukan persetujuan Anda dengan detail sebagai berikut:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 5px 0;"><strong>Nomor Ulok:</strong> ${data.nomor_ulok}</li>
+                    <li style="padding: 5px 0;"><strong>Pertambahan Hari:</strong> ${data.pertambahan_hari} hari</li>
+                    <li style="padding: 5px 0;"><strong>Dibuat Oleh:</strong> ${data.dibuatOleh}</li>
+                    <li style="padding: 5px 0; vertical-align: top;"><strong>Alasan:</strong><ul style="margin-top: 5px;">${alasanList}</ul></li>
+                </ul>
+                <p>Dokumen lengkap dapat dilihat pada link berikut: <a href="${data.pdfUrl}" target="_blank" style="color: #004a80;">Lihat PDF</a></p>
+                <p>Mohon untuk memberikan respon dengan menekan salah satu tombol di bawah ini:</p>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 20px;">
+                    <tr>
+                        <td>
+                            <a href="${approveUrl}" style="background-color: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; margin-right: 10px; font-weight: bold;">SETUJU</a>
+                            <a href="${rejectUrl}" style="background-color: #d9534f; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">TOLAK</a>
+                        </td>
+                    </tr>
+                </table>
+                <p style="margin-top: 25px; font-size: 0.9em; color: #777;">Terima kasih.</p>
+            </div>`;
+    }
+},
+
+"perpanjangan_spk_final": {
+    getSubject: (data) => `[${data.status.toUpperCase()}] Respon Perpanjangan SPK - ${data.nomor_ulok}`,
+    getRecipients: (data) => {
+        return data.status === 'Disetujui'
+            ? [data.bmm_email, data.bm_email, data.bbc_email].filter(Boolean)
+            : [data.bmm_email].filter(Boolean);
+    },
+    getHtmlBody: (data) => {
+        const alasanList = data.alasan_spk.split('\n').map(alasan => `<li>${alasan}</li>`).join('');
+        const statusColor = data.status === 'Disetujui' ? '#28a745' : '#d9534f';
+        const rejectionReasonHtml = (data.status === 'Ditolak' && data.reason)
+            ? `<p style="padding: 10px; border-left: 4px solid #d9534f; background-color: #fbeaea;"><strong>Alasan Penolakan:</strong> ${data.reason}</p>`
+            : '';
+
+        return `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <p>Pemberitahuan,</p>
+                <p>Permintaan perpanjangan SPK untuk <strong>Nomor Ulok ${data.nomor_ulok}</strong> telah direspon.</p>
+                <h3 style="color: ${statusColor}; border-bottom: 2px solid ${statusColor}; padding-bottom: 5px;">Status: ${data.status}</h3>
+                <p><strong>Direspon oleh:</strong> ${data.approver}</p>
+                ${rejectionReasonHtml}
+                <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+                <h4>Detail Permintaan Awal:</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 5px 0;"><strong>Pertambahan Hari:</strong> ${data.pertambahan_hari} hari</li>
+                    <li style="padding: 5px 0;"><strong>Dibuat Oleh:</strong> ${data.dibuatOleh}</li>
+                    <li style="padding: 5px 0; vertical-align: top;"><strong>Alasan:</strong><ul style="margin-top: 5px;">${alasanList}</ul></li>
+                </ul>
+                <p>Dokumen final dapat dilihat pada link berikut: <a href="${data.pdfUrl}" target="_blank" style="color: #004a80;">Lihat PDF Final</a></p>
+                <p style="margin-top: 25px; font-size: 0.9em; color: #777;">Terima kasih.</p>
+            </div>`;
+    }
+  }
 };
 
 async function sendEmail(formType, data) {
