@@ -1,29 +1,10 @@
-const express = require("express");
 const axios = require("axios");
-const cors = require("cors")
-  const app = express();
-app.use(express.json());
-
-const allowedOrigins = [
-  "https://pengawasan-building.vercel.app",
-  "http://localhost:3000",
-];
-
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
+const cors = require("cors")({
+  origin: [
+    "https://pengawasan-building.vercel.app",
+    "https://script.google.com",
+  ],
+  methods: ["GET", "POST", "OPTIONS"],
 });
 
 const GAS_URLS = {
@@ -54,48 +35,47 @@ const GAS_URLS = {
   perpanjangan_spk: "https://script.google.com/macros/s/AKfycbxm8ImgrbUIXE0FpigxzGdGqQ0pE_p5IkU70Im7xV8uLqgfwQ4OZ2JSeTdxl0-dFqKv/exec"
 };
 
-app.all("/api/form", async (req, res) => {
-  const form = (req.query.form || req.body.form || "").toLowerCase();
-  const GAS_URL = GAS_URLS[form];
+module.exports = (req, res) => {
+  cors(req, res, async () => {
+    if (req.method === "OPTIONS") return res.status(200).end();
 
-  if (!GAS_URL) {
-    return res.status(400).json({ error: "Invalid or missing form ID" });
-  }
+    const form = (req.query.form || req.body.form || "").toLowerCase();
+    const GAS_URL = GAS_URLS[form];
 
-  try {
-    if (req.method === "GET") {
-      const url = new URL(GAS_URL);
-      Object.entries(req.query).forEach(([key, value]) => {
-        if (key !== "form") url.searchParams.append(key, value);
-      });
-      const response = await axios.get(url.toString());
-      return res.status(200).json(response.data);
+    if (!GAS_URL) {
+      return res.status(400).json({ error: "Invalid or missing form ID" });
     }
 
-    if (req.method === "POST") {
-      const postData = { ...req.body };
-      delete postData.form;
+    try {
+      if (req.method === "GET") {
+        const url = new URL(GAS_URL);
+        Object.entries(req.query).forEach(([key, value]) => {
+          if (key !== "form") url.searchParams.append(key, value);
+        });
+        const response = await axios.get(url.toString());
+        return res.status(200).json(response.data);
+      }
 
-      const response = await axios.post(GAS_URL, postData, {
-        headers: { "Content-Type": "application/json" },
+      if (req.method === "POST") {
+        const postData = { ...req.body };
+        delete postData.form;
+
+        const response = await axios.post(GAS_URL, postData, {
+          headers: { "Content-Type": "application/json" },
+        });
+        return res.status(200).json(response.data);
+      }
+
+      return res.status(405).json({ error: "Method Not Allowed" });
+    } catch (error) {
+      console.error("GAS Proxy error:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
       });
-      return res.status(200).json(response.data);
+      return res
+        .status(500)
+        .json({ error: "Gagal mengakses Google Apps Script" });
     }
-
-    return res.status(405).json({ error: "Method Not Allowed" });
-  } catch (error) {
-    console.error("GAS Proxy error:", {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
-    });
-    return res
-      .status(500)
-      .json({ error: "Gagal mengakses Google Apps Script" });
-  }
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server berjalan di port ${PORT}`);
-});
+  });
+};
