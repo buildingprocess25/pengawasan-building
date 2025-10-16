@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Perpanjangan SPK</title>
+    <title>Login - Pengawasan</title>
     <style>
       :root {
         --red: #e1251b;
@@ -273,7 +273,7 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            form: "login_perpanjanganspk",
+            form: "login",
             action: "loginManager",
             email,
             password,
@@ -298,11 +298,9 @@
         try {
           const result = await performLogin(email, password);
           showSuccess(result.message || "Login berhasil! Mengalihkan...");
-          if (result.token && result.data) {
+          if (result.token) {
             sessionStorage.setItem("authToken", result.token);
-            sessionStorage.setItem("userData", JSON.stringify(result.data))
-
-            const redirectUrl = `https://pengawasan-building.vercel.app/perpanjangan_spk/perpanjangan_spk.html`;
+            const redirectUrl = `https://pengawasan-building.vercel.app/input_pic_pengawasan.html`;
             setTimeout(() => (window.location.href = redirectUrl), 1500);
           } else {
             throw new Error("Token tidak diterima dari server.");

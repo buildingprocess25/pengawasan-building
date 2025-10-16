@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Pengawasan</title>
+    <title>Login - Perpanjangan SPK</title>
     <style>
       :root {
         --red: #e1251b;
@@ -190,7 +190,7 @@
     <div class="login-container">
       <div class="logo">
         <img
-          src="../assets/Alfamart-Emblem.png"
+          src="./Alfamart-Emblem.png"
           alt="Logo Alfamart"
           class="login-logo"
         />
@@ -273,7 +273,7 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            form: "login",
+            form: "login_perpanjanganspk",
             action: "loginManager",
             email,
             password,
@@ -298,9 +298,11 @@
         try {
           const result = await performLogin(email, password);
           showSuccess(result.message || "Login berhasil! Mengalihkan...");
-          if (result.token) {
+          if (result.token && result.data) {
             sessionStorage.setItem("authToken", result.token);
-            const redirectUrl = `./input_pic_pengawasan.html`;
+            sessionStorage.setItem("userData", JSON.stringify(result.data))
+
+            const redirectUrl = `https://pengawasan-building.vercel.app/perpanjangan_spk.html`;
             setTimeout(() => (window.location.href = redirectUrl), 1500);
           } else {
             throw new Error("Token tidak diterima dari server.");
