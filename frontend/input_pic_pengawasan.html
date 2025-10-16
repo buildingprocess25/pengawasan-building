@@ -728,20 +728,20 @@
         sessionStorage.removeItem("authToken");
 
         window.location.href =
-          "https://frontend-form-virid.vercel.app/login.html";
+          "https://pengawasan-building.vercel.app/login-input_pic.html";
       });
 
       window.closePopup = closePopup;
       (async function checkAuth() {
         const token = sessionStorage.getItem("authToken");
-        const loginPage = "https://frontend-form-virid.vercel.app/login.html";
+        const loginPage = "https://pengawasan-building.vercel.app/login-input_pic.html";
         if (!token) {
           window.location.replace(loginPage);
           return;
         }
         try {
           const response = await fetch(
-            `${SCRIPT_URL}?form=login&action=verifyToken&token=${token}`
+            `${SCRIPT_URL}?form=login-input_pic&action=verifyToken&token=${token}`
           );
           if (!response.ok)
             throw new Error("Server tidak merespon dengan baik.");
